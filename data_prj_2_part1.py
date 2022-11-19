@@ -1,18 +1,18 @@
 ''' this file is for Python Data Project-2 Part 1'''
 import csv
 import constants as const
-from functions import bar_plot
+from functions import bar_plot_prj2_1
 
 def calculate(csv_file: str):
     ''' get required data from csv in dict '''
 
-    with open(csv_file, encoding="utf-8") as inputfile:
+    with open(csv_file, encoding="latin-1") as inputfile:
         authorized_capital_rangewise = {}
         company_reader = csv.DictReader(inputfile)
         invalid_capital_value = []
 
-        try:
-            for company in company_reader:
+        for company in company_reader:
+            try:
                 temp = int(company['AUTHORIZED_CAP'])
                 if temp <= 100000:
                     authorized_capital_rangewise["<= 1L"] = (
@@ -34,8 +34,8 @@ def calculate(csv_file: str):
                     authorized_capital_rangewise["> 10Cr"] = (
                         authorized_capital_rangewise.get("> 10Cr", 0) + 1
                     )
-        except ValueError:
-            invalid_capital_value.append(company)
+            except ValueError:
+                invalid_capital_value.append(company)
     return authorized_capital_rangewise
 
 def execute():
@@ -44,7 +44,7 @@ def execute():
 
     authorized_capital_rangewise = calculate(const.MAHARASHTRA_CSV)
 
-    bar_plot(authorized_capital_rangewise, const.VALUE_OF_AUTH_CAP,
+    bar_plot_prj2_1(authorized_capital_rangewise, const.VALUE_OF_AUTH_CAP,
                 const.NO_OF_COMPANIES, const.AUTH_CAP)
 
 
