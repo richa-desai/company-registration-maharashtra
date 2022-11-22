@@ -60,11 +60,12 @@ def get_district_name(top_companies):
     undefined_pin = []
     for key in top_companies.keys():
         try:
-            top_companies_district[key].append(district_pincode[key])
+            top_companies_district[key] = [top_companies_district[key], district_pincode[key]]
         except ValueError:
             undefined_pin.append(key)
         except KeyError:
             undefined_pin.append(key)
+            del top_companies_district[key]
     print(undefined_pin)
     return top_companies_district
 

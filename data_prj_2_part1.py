@@ -3,6 +3,7 @@ import csv
 import constants as const
 from functions import bar_plot_prj2_1
 
+
 def calculate(csv_file: str):
     ''' get required data from csv in dict '''
 
@@ -13,30 +14,31 @@ def calculate(csv_file: str):
 
         for company in company_reader:
             try:
-                temp = int(company['AUTHORIZED_CAP'])
-                if temp <= 100000:
+                authorized_capital = int(company['AUTHORIZED_CAP'])
+                if authorized_capital <= 100000:
                     authorized_capital_rangewise["<= 1L"] = (
                         authorized_capital_rangewise.get("<= 1L", 0) + 1
                     )
-                elif temp <= 1000000:
+                elif authorized_capital <= 1000000:
                     authorized_capital_rangewise["1L to 10L"] = (
                         authorized_capital_rangewise.get("1L to 10L", 0) + 1
                     )
-                elif temp <= 10000000:
+                elif authorized_capital <= 10000000:
                     authorized_capital_rangewise["10L to 1Cr"] = (
                         authorized_capital_rangewise.get("10L to 1Cr", 0) + 1
                     )
-                elif temp <= 100000000:
+                elif authorized_capital <= 100000000:
                     authorized_capital_rangewise["1Cr to 10Cr"] = (
                         authorized_capital_rangewise.get("1Cr to 10Cr", 0) + 1
                     )
-                elif temp > 100000000:
+                elif authorized_capital > 100000000:
                     authorized_capital_rangewise["> 10Cr"] = (
                         authorized_capital_rangewise.get("> 10Cr", 0) + 1
                     )
             except ValueError:
                 invalid_capital_value.append(company)
     return authorized_capital_rangewise
+
 
 def execute():
     ''' function to get data to plot graphs'''
@@ -45,7 +47,7 @@ def execute():
     authorized_capital_rangewise = calculate(const.MAHARASHTRA_CSV)
 
     bar_plot_prj2_1(authorized_capital_rangewise, const.VALUE_OF_AUTH_CAP,
-                const.NO_OF_COMPANIES, const.AUTH_CAP)
+                    const.NO_OF_COMPANIES, const.AUTH_CAP)
 
 
 execute()  # driver function

@@ -17,13 +17,14 @@ def bar_plot(bar_plot_data: dict, xlabel: str, ylabel: str, title: str):
     plt.title(title)
     plt.tight_layout()
     plt.xticks(x_axis_keys)
-    plt.rcParams["figure.figsize"] = (80,5.5)
+    plt.rcParams["figure.figsize"] = (80, 5.5)
     # show plot
     plt.show()
 
 
 def bar_plot_prj2_1(bar_plot_data: dict, xlabel: str, ylabel: str, title: str):
-    """Pass dict variable having keys to plot on x-axis and pass values to plot on y-axis"""
+    """Pass dict variable having keys to plot on x-axis and pass values to plot on y-axis.
+    This function has x labels sorting specific to Part 2 of Python Data Prj 2"""
     # initialisation
     x_axis_keys = list(bar_plot_data.keys())
     y_axis_values = list(bar_plot_data.values())

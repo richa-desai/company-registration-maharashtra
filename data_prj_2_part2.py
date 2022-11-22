@@ -14,17 +14,18 @@ def calculate(csv_file: str):
 
         for company in company_reader:
             try:
-                temp = company['DATE_OF_REGISTRATION']
-                year = temp[6]+temp[7]
+                date = company['DATE_OF_REGISTRATION']
+                year = date[6]+date[7]  # because format of date is dd-mm-yy
                 year = int(year)
                 company_registration_yearwise[year] = (
-                        company_registration_yearwise.get(year, 0) + 1
-                    )
+                    company_registration_yearwise.get(year, 0) + 1
+                )
             except ValueError:
                 invalid_company.append(company)
             except IndexError:
                 invalid_company.append(company)
     return company_registration_yearwise
+
 
 def execute():
     ''' function to get data to plot graphs'''
@@ -32,7 +33,7 @@ def execute():
     company_registration_yearwise = calculate(const.MAHARASHTRA_CSV)
 
     bar_plot(company_registration_yearwise, const.REG_YEAR,
-                const.NO_OF_COMPANIES, const.COMPANY_REG)
+             const.NO_OF_COMPANIES, const.COMPANY_REG)
 
 
 execute()  # driver function
