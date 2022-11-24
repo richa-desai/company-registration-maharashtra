@@ -1,7 +1,7 @@
 ''' this file is for Python Data Project-2 Part 3'''
 import csv
 import constants as const
-from functions import bar_plot_prj_2_3
+from functions import bar_plot
 
 def calculate(csv_file: str):
     ''' get required data from csv in dict '''
@@ -18,7 +18,7 @@ def calculate(csv_file: str):
                 year = int(year)
                 if year == 15:
                     temp = company['Registered_Office_Address']
-                    pincode = temp[-6]+temp[-5]+temp[-4]+temp[-3]+temp[-2]+temp[-1]
+                    pincode = temp[-6]+temp[-5]+temp[-4]
                     company_registration_districtwise[pincode] = (
                             company_registration_districtwise.get(pincode, 0) + 1
                         )
@@ -31,14 +31,19 @@ def calculate(csv_file: str):
 def transform(company_registration_districtwise, top_n):
     ''' function to get top n zip codes and get district names'''
     num_of_registrations = list(company_registration_districtwise.values())
+    districtwise_count = {}
+    for count_district in num_of_registrations:
+        district = count_district[1]
+        districtwise_count[district] = districtwise_count.get(district, 0) + count_district[0]
+    num_of_registrations = list(districtwise_count.values())
     num_of_registrations.sort(reverse=True)
     top_n_regs = num_of_registrations[:top_n]
 
     top_districts = {}
     for value in top_n_regs:
-        key = list(company_registration_districtwise.keys())[
-            list(company_registration_districtwise.values()).index(value)]
-        top_districts[key] = company_registration_districtwise[key]
+        key = list(districtwise_count.keys())[
+            list(districtwise_count.values()).index(value)]
+        top_districts[key] = districtwise_count[key]
 
     return top_districts
 
@@ -52,7 +57,7 @@ def get_district_name(top_companies):
 
         for district in district_reader:
             temp_zip = district['Pin Code']
-            del_this_var = temp_zip[0]+temp_zip[1]+temp_zip[2]+temp_zip[3]+temp_zip[4]+temp_zip[5]
+            del_this_var = temp_zip[0]+temp_zip[1]+temp_zip[2]
             district_pincode[del_this_var] = district['District']
 
     top_companies_district = top_companies.copy()
@@ -78,7 +83,7 @@ def execute():
     top_companies = transform(top_companies_dist, 10)
 
 
-    bar_plot_prj_2_3(top_companies.values(), top_companies.values(), const.DISTRICT,
+    bar_plot(top_companies, const.DISTRICT,
                 const.NO_OF_COMPANIES, const.COMPANY_REG_DIST)
 
 
