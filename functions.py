@@ -77,3 +77,31 @@ def bar_plot_prj_2_3(bar_xaxis: list, bar_yaxis: list, xlabel: str, ylabel: str,
     plt.tight_layout()
     # show plot
     plt.show()
+
+
+def bar_group_plot(top_business_activity: dict, registration_yearwise: dict,
+                   xlabel: str, ylabel: str, title: str):
+    '''Pass dict variable'''
+    # initialisation
+    y_values_activity = top_business_activity.values()
+    y_values_registration = registration_yearwise.values()
+
+    fig = plt.figure()
+    width = 0.2
+    x_values = []
+    for i in range(12, 17):
+        x_values.append(i)
+    x_values2 = []
+    for i in range(1, 11):
+        x_values2.append(i)
+    # creating the bar plot
+    plt.bar(x_values, y_values_activity, width)
+    plt.bar(x_values2, y_values_registration, width)
+
+    fig.autofmt_xdate()  # gives rotation to the x axis titles
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend(top_business_activity.keys())
+    plt.tight_layout()
+    plt.xticks(x_values, registration_yearwise.keys)

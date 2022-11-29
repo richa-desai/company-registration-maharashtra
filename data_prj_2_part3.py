@@ -57,8 +57,8 @@ def get_district_name(top_companies):
 
         for district in district_reader:
             temp_zip = district['Pin Code']
-            del_this_var = temp_zip[0]+temp_zip[1]+temp_zip[2]
-            district_pincode[del_this_var] = district['District']
+            district_code = temp_zip[0]+temp_zip[1]+temp_zip[2]
+            district_pincode[district_code] = district['District']
 
     top_companies_district = top_companies.copy()
 
