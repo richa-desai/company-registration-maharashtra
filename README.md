@@ -5,7 +5,7 @@
 * Now activate with: source new-env-name/bin/activate
 * Install Python and pip.
 * Install Matplotlib with the command- pip install matplotlib
-* Clone repo (https://gitlab.com/mountblue/cohort-22-python/richa/company-master-maharashtra.git)
+* Clone repo (https://github.com/richa-desai/company-registration-maharashtra)
 * Alternatively, download all files (Keep all files in the same folder).
 * Run the above downloaded required Python file to see graphs/plots with: python python_filename.py
 
